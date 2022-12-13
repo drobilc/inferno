@@ -77,11 +77,22 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
     }).join(',\n\t\t');
 
     String objectName = _generateObjectName();
+    String fileName = objectName.toLowerCase();
 
-    String result = "class $objectName {\n\n";
-    result += '$fieldTypesObjectSignature\n';
-    result += "\t$objectName({\n\t\t$fieldTypesConstructorSignature\n\t});";
-    result += "\n\n}";
+    String result = [
+      "import 'package:json_annotation/json_annotation.dart';\n",
+      "part '$fileName.g.dart';\n",
+
+      "@JsonSerializable()",
+      "class $objectName {\n",
+      fieldTypesObjectSignature,
+      "\t$objectName({\n\t\t$fieldTypesConstructorSignature\n\t});\n",
+
+      "\tfactory $objectName.fromJson(Map<String, dynamic> json) => _\$${objectName}FromJson(json);",
+      "\tMap<String, dynamic> toJson() => _\$${objectName}ToJson(this);\n"
+
+      "\n}"
+    ].join("\n");
     argument.add(result);
 
     return objectName;
