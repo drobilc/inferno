@@ -24,7 +24,10 @@ void main(List<String> arguments) {
   final input = readInputSync();
   final decoded = json.decode(input);
 
-  final dataType = JsonToDataTypeConverter.convert(decoded, mergeStrategy);
-  final result = DartCodeGenerator.generateCode(dataType);
+  final dataType = JsonToDataTypeConverter.convert(decoded);
+  final result = DartCodeGenerator.generateCode(
+    dataType,
+    mergeStrategy: mergeStrategy,
+  );
   stdout.write(result);
 }

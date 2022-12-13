@@ -1,18 +1,26 @@
 import 'package:auto_json_serializable/datatypes/datatypes.dart';
+import 'package:auto_json_serializable/visitors/json/json.dart';
+import 'package:auto_json_serializable/visitors/datatype/datatype_merger.dart';
 import 'datatype_visitor.dart';
 
 class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
 
+  final MergeStrategy mergeStrategy;
   int _numberOfGeneratedObjects = 0;
+
+  DartCodeGenerator(this.mergeStrategy);
 
   String _generateObjectName() {
     _numberOfGeneratedObjects++;
     return 'Object$_numberOfGeneratedObjects';
   }
 
-  static String generateCode(DataType dataType) {
+  static String generateCode(
+    DataType dataType, {
+    MergeStrategy mergeStrategy = MergeStrategy.first,
+  }) {
     final List<String> generatedObjects = [];
-    DartCodeGenerator().visit(dataType, generatedObjects);
+    DartCodeGenerator(mergeStrategy).visit(dataType, generatedObjects);
     return generatedObjects.join('\n\n');
   }
 
@@ -47,14 +55,20 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
 
   @override
   String visitArrayType(ArrayType dataType, List<String> argument) {
-    return _nullableWrap("List<${visit(dataType.itemType, argument)}>", dataType);
+    final arrayType = dataType.itemTypes.reduce(
+      (value, element) => DataTypeMerger.merge(mergeStrategy, value, element),
+    );
+    return _nullableWrap("List<${visit(arrayType, argument)}>", dataType);
   }
 
   @override
   String visitObjectType(ObjectType dataType, List<String> argument) {
-    
-    final fieldTypes = dataType.fieldTypes.map((key, value) => MapEntry(key, visit(value, argument)),);
-    final fieldTypesObjectSignature = fieldTypes.entries.map((entry) => '\tfinal ${entry.value} ${entry.key};').join('\n');
+    final fieldTypes = dataType.fieldTypes.map(
+      (key, value) => MapEntry(key, visit(value, argument)),
+    );
+    final fieldTypesObjectSignature = fieldTypes.entries
+        .map((entry) => '\tfinal ${entry.value} ${entry.key};')
+        .join('\n');
 
     final fieldTypesConstructorSignature = fieldTypes.entries.map((entry) {
       final isNullable = dataType.fieldTypes[entry.key]!.nullable;
@@ -72,5 +86,4 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
 
     return objectName;
   }
-
 }

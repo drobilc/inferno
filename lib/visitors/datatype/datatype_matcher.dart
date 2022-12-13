@@ -48,7 +48,8 @@ class DataTypeMatcher extends DataTypeVisitor<Match, DataType> {
   @override
   Match visitArrayType(ArrayType dataType, DataType argument) {
     if (argument is! ArrayType) return Match.noMatch;
-    return visit(dataType.itemType, argument.itemType);
+    // How do we match an array?
+    return visit(dataType.itemTypes.first, argument.itemTypes.first);
   }
 
   @override

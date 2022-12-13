@@ -1,14 +1,9 @@
 import 'package:auto_json_serializable/datatypes/datatypes.dart';
-import 'datatype_merger.dart';
 import 'json_visitor.dart';
-import 'merge_strategy.dart';
-
 class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
-  final MergeStrategy mergeStrategy;
-  JsonToDataTypeConverter(this.mergeStrategy);
 
-  static DataType convert(dynamic json, MergeStrategy mergeStrategy) {
-    return JsonToDataTypeConverter(mergeStrategy).visit(json, null);
+  static DataType convert(dynamic json) {
+    return JsonToDataTypeConverter().visit(json, null);
   }
 
   @override
@@ -38,11 +33,8 @@ class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
 
   @override
   DataType visitJsonArray(List json, Object? argument) {
-    final itemTypes = json.map((e) => visit(e, argument));
-    final arrayType = itemTypes.reduce(
-      (value, element) => DataTypeMerger.merge(mergeStrategy, value, element),
-    );
-    return ArrayType(arrayType);
+    final itemTypes = json.map((e) => visit(e, argument)).toList(growable: false);
+    return ArrayType(itemTypes);
   }
 
   @override
