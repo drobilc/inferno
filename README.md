@@ -2,11 +2,23 @@
     <img src="public/inferno.png" alt="Inferno logo">
 </div>
 
+<h3 align="center">
+  <a href="#installation"><b>Installation</b></a>
+  &nbsp;&#65372;&nbsp;
+  <a href="#usage"><b>Usage</b></a>
+  &nbsp;&#65372;&nbsp;
+  <a href="#examples"><b>Examples</b></a>
+</h3>
+
 ## Introduction
 
-Inferno is a library that simplifies the process of working with JSON data. It allows users to automatically infer data types from a JSON file and generate a parser that can parse it.
+**Inferno** is a library that simplifies the process of working with JSON data. It allows users to automatically infer data types from a JSON file and generate a parser that can parse it.
 
-## Examples
+## Installation
+
+## Usage
+
+## ⭐ Examples
 
 First, we will feed Inferno a JSON object with several fields and see how it generates the corresponding Dart object. Then, we will see how Inferno can handle nested JSON objects and arrays, and how it can infer other data types from the JSON data.
 
