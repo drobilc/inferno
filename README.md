@@ -18,7 +18,7 @@
 
 ## Usage
 
-## ⭐ Examples
+## Examples
 
 First, we will feed Inferno a JSON object with several fields and see how it generates the corresponding Dart object. Then, we will see how Inferno can handle nested JSON objects and arrays, and how it can infer other data types from the JSON data.
 
