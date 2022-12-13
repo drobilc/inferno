@@ -2,7 +2,7 @@
     <img src="public/inferno.png" alt="Inferno logo">
 </div>
 
-## Usage
+## Introduction
 
 Inferno is a library that simplifies the process of working with JSON data. It allows users to automatically infer data types from a JSON file and generate a parser that can parse it.
 
@@ -55,3 +55,91 @@ class Object1 {
 ```
 
 The `part ...`, `_$Object1FromJson` and `_$Object1ToJson` references are to a generated file that is created when we run the [json_serializable](https://pub.dev/packages/json_serializable) generator. This generated file contains the actual serialization and deserialization logic for the class, allowing us to easily convert objects of this class to and from JSON.
+
+### Infering data types for nested objects
+
+Let's look at an example of a JSON file containing a nested object. In this example, the location is represented as a nested object with two fields.
+
+```json
+{
+    "name": "Raymond Jacob Holt",
+    "location": {
+        "city": "Brooklyn",
+        "state": "NY"
+    }
+}
+```
+
+Inferno generates the following code. The first object represents our location with `city` and `state` fields and the second object represents a person with `name` and `location` fields.
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'object1.g.dart';
+
+@JsonSerializable()
+class Object1 {
+
+        final String city;
+        final String state;
+        Object1({
+                required this.city,
+                required this.state
+        });
+
+        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+
+}
+
+@JsonSerializable()
+class Object2 {
+
+        final String name;
+        final Object1 location;
+        Object2({
+                required this.name,
+                required this.location
+        });
+
+        factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
+        Map<String, dynamic> toJson() => _$Object2ToJson(this);
+
+}
+```
+
+To parse the original JSON file, we can now call `final person = Object1.fromJson(...)`.
+
+### Infering data types for arrays
+
+```json
+{
+    "names": ["George", "Jenna", "Michael", "Tina"],
+    "ages": [25, 12, 84, 16],
+    "can_drive": [true, false, true, false]
+}
+```
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'object1.g.dart';
+
+@JsonSerializable()
+class Object1 {
+
+        final List<String> names;
+        final List<num> ages;
+        @JsonKey(name: "can_drive")
+        final List<bool> canDrive;
+        Object1({
+                required this.names,
+                required this.ages,
+                required this.canDrive
+        });
+
+        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+
+}
+```
