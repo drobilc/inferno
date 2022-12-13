@@ -1,4 +1,6 @@
-# Inferno
+<div align="center">
+    <img src="public/inferno.png" alt="Inferno logo">
+</div>
 
 Inferno is a library that simplifies the process of working with JSON data. It allows users to automatically infer data types from a JSON file and generate a parser that can parse it. This eliminates the need for users to manually specify data types and write custom parsing logic, saving time and reducing the potential for error.
 
