@@ -110,7 +110,7 @@ class Object2 {
 
 To parse the original JSON file, we can now call `final person = Object1.fromJson(...)`.
 
-### Infering data types for arrays
+### Infering data types for arrays - primitive data types
 
 ```json
 {
@@ -136,6 +136,131 @@ class Object1 {
                 required this.names,
                 required this.ages,
                 required this.canDrive
+        });
+
+        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+
+}
+```
+
+### Infering data types for arrays - objects with identical fields
+
+```json
+{
+    "points": [
+        { "x": 0, "y": 0 },
+        { "x": 5, "y": 2 },
+        { "x": 3, "y": 4 }
+    ]
+}
+```
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'object1.g.dart';
+
+@JsonSerializable()
+class Object1 {
+
+        final num x;
+        final num y;
+        Object1({
+                required this.x,
+                required this.y
+        });
+
+        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+
+}
+
+@JsonSerializable()
+class Object2 {
+
+        final List<Object1> points;
+        Object2({
+                required this.points
+        });
+
+        factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
+        Map<String, dynamic> toJson() => _$Object2ToJson(this);
+
+}
+```
+
+### Infering data types for arrays - objects with similar fields
+
+```json
+{
+    "points": [
+        { "x": 0, "y": 0 },
+        { "x": 5, "y": 2, "z": 16 },
+        { "x": 3, "y": 4 }
+    ]
+}
+```
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'object1.g.dart';
+
+@JsonSerializable()
+class Object1 {
+
+        final num x;
+        final num y;
+        final num? z;
+        Object1({
+                required this.x,
+                required this.y,
+                this.z
+        });
+
+        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+
+}
+
+@JsonSerializable()
+class Object2 {
+
+        final List<Object1> points;
+        Object2({
+                required this.points
+        });
+
+        factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
+        Map<String, dynamic> toJson() => _$Object2ToJson(this);
+
+}
+```
+
+### Infering data types for nested arrays
+
+```json
+{
+    "grid": [
+        [ false, false, true ],
+        [ false, true, false ],
+        [ true, false, false ]
+    ]
+}
+```
+
+```dart
+import 'package:json_annotation/json_annotation.dart';
+
+part 'object1.g.dart';
+
+@JsonSerializable()
+class Object1 {
+
+        final List<List<bool>> grid;
+        Object1({
+                required this.grid
         });
 
         factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
