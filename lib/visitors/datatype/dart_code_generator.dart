@@ -18,13 +18,13 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
   static String generateCodeForObject(
     ObjectType dataType, {
     MergeStrategy mergeStrategy = MergeStrategy.first,
-    String? objectName,
+    String? className,
   }) {
     final List<String> generatedObjects = [];
     DartCodeGenerator(mergeStrategy).visitObjectType(
       dataType,
       generatedObjects,
-      definedObjectName: objectName,
+      definedClassName: className,
     );
     return generatedObjects.join('\n\n');
   }
@@ -70,7 +70,7 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
   String visitObjectType(
     ObjectType dataType,
     List<String> argument, {
-    String? definedObjectName,
+    String? definedClassName,
   }) {
     final fieldTypes = dataType.fieldTypes.map(
       (key, value) => MapEntry(key, visit(value, argument)),
@@ -110,22 +110,20 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
       return '${nullablePrefix}this.$camelCaseName';
     }).join(',\n\t\t');
 
-    final objectName = definedObjectName ?? _generateObjectName();
-    String fileName = objectName.toLowerCase();
+    final className = definedClassName ?? _generateObjectName();
+    final inferredClassName = 'Inferred$className';
 
     String result = [
-      "import 'package:json_annotation/json_annotation.dart';\n",
-      "part '$fileName.g.dart';\n",
       "@JsonSerializable()",
-      "class $objectName {\n",
+      "class $inferredClassName {\n",
       fieldTypesObjectSignature,
-      "\t$objectName({\n\t\t$fieldTypesConstructorSignature\n\t});\n",
-      "\tfactory $objectName.fromJson(Map<String, dynamic> json) => _\$${objectName}FromJson(json);",
-      "\tMap<String, dynamic> toJson() => _\$${objectName}ToJson(this);\n"
+      "\t$inferredClassName({\n\t\t$fieldTypesConstructorSignature\n\t});\n",
+      "\tfactory $inferredClassName.fromJson(Map<String, dynamic> json) => _\$${inferredClassName}FromJson(json);",
+      "\tMap<String, dynamic> toJson() => _\$${inferredClassName}ToJson(this);\n"
           "\n}"
     ].join("\n");
     argument.add(result);
 
-    return objectName;
+    return inferredClassName;
   }
 }
