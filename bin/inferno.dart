@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:auto_json_serializable/visitors/datatype/dart_code_generator.dart';
-import 'package:auto_json_serializable/visitors/json/json.dart';
+import 'package:inferno/visitors/datatype/dart_code_generator.dart';
+import 'package:inferno/visitors/json/json.dart';
 
 import 'input.dart';
 
