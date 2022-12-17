@@ -18,6 +18,8 @@
 
 ## Usage
 
+The following code in file named `person.dart`.
+
 ```dart
 import 'package:json_annotation/json_annotation.dart';
 import 'package:inferno/annotations.dart';
@@ -28,6 +30,25 @@ part 'person.g.dart';
 @InferFromJSONFile(file: "person.json")
 typedef Person = InferredPerson;
 ```
+
+### Imports
+
+Since we will be using the `@InferFromJSONFile` annotation, we must first import it using `import 'package:inferno/annotations.dart';`. The generated file will use `@JsonSerializable` annotation, which can be found in `import 'package:json_annotation/json_annotation.dart';` library.
+
+The **Inferno** library will generate a file `person.inferno.dart`, containing an object inferred from JSON file `person.json`. The object will be annotated using the `@JsonSerializable` annotation, which will generate another file `person.g.dart`, which will contain a `json_serializable` parser. We must define both files as parts of our type definition file.
+
+### Type inference
+
+```
+@InferFromJSONFile(file: "person.json")
+typedef Person = InferredPerson;
+```
+
+The `@InferFromJSONFile` annotation must always precede type definition of format `typedef <ClassName> = Inferred<ClassName>`. **Inferno will generate a new class named `Inferred<ClassName>`, which we then rename to `<ClassName>` using type alias.
+
+Note: We can include many type declarations with `InferFromJSONFile` annotation in a single file, which will generate only two files: `<file_name>.inferno.dart` and `<file_name>.g.dart`.
+
+### Generating JSON parsers
 
 To build with a Dart package, run Dart build runner using `dart run build_runner build` in the package directory`.
 
