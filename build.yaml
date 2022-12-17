@@ -1,0 +1,9 @@
+builders:
+
+  inferno:
+    import: "package:inferno/builder.dart"
+    builder_factories: ["infernoBuilder"]
+    build_extensions: {".dart": [".inferno.dart"]}
+    auto_apply: root_package
+    build_to: source
+    runs_before: ["json_serializable|json_serializable"]
