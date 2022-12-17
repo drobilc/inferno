@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:inferno/datatypes/datatypes.dart';
 import 'package:inferno/visitors/datatype/dart_code_generator.dart';
 import 'package:inferno/visitors/json/json.dart';
 
@@ -25,8 +26,9 @@ void main(List<String> arguments) {
   final decoded = json.decode(input);
 
   final dataType = JsonToDataTypeConverter.convert(decoded);
-  final result = DartCodeGenerator.generateCode(
-    dataType,
+  // TODO: Gracefully handle inputs that are not objects
+  final result = DartCodeGenerator.generateCodeForObject(
+    dataType as ObjectType,
     mergeStrategy: mergeStrategy,
   );
   stdout.write(result);

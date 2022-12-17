@@ -15,12 +15,17 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
     return 'Object$_numberOfGeneratedObjects';
   }
 
-  static String generateCode(
-    DataType dataType, {
+  static String generateCodeForObject(
+    ObjectType dataType, {
     MergeStrategy mergeStrategy = MergeStrategy.first,
+    String? objectName,
   }) {
     final List<String> generatedObjects = [];
-    DartCodeGenerator(mergeStrategy).visit(dataType, generatedObjects);
+    DartCodeGenerator(mergeStrategy).visitObjectType(
+      dataType,
+      generatedObjects,
+      definedObjectName: objectName,
+    );
     return generatedObjects.join('\n\n');
   }
 
@@ -62,7 +67,11 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
   }
 
   @override
-  String visitObjectType(ObjectType dataType, List<String> argument) {
+  String visitObjectType(
+    ObjectType dataType,
+    List<String> argument, {
+    String? definedObjectName,
+  }) {
     final fieldTypes = dataType.fieldTypes.map(
       (key, value) => MapEntry(key, visit(value, argument)),
     );
@@ -101,7 +110,7 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
       return '${nullablePrefix}this.$camelCaseName';
     }).join(',\n\t\t');
 
-    String objectName = _generateObjectName();
+    final objectName = definedObjectName ?? _generateObjectName();
     String fileName = objectName.toLowerCase();
 
     String result = [
