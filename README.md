@@ -14,8 +14,6 @@
 
 **Inferno** is a library that simplifies the process of working with JSON data. It allows users to automatically infer data types from a JSON file and generate a parser that can parse it.
 
-## Installation
-
 ## Usage
 
 The following code in file named `person.dart`.
