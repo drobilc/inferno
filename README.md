@@ -18,6 +18,21 @@
 
 ## Usage
 
+```dart
+import 'package:json_annotation/json_annotation.dart';
+import 'package:inferno/annotations.dart';
+
+part 'person.inferno.dart';
+part 'person.g.dart';
+
+@InferFromJSONFile(file: "person.json")
+typedef Person = InferredPerson;
+```
+
+To build with a Dart package, run Dart build runner using `dart run build_runner build` in the package directory`.
+
+To build with a Flutter package, run `flutter pub run build_runner build` in your package directory.
+
 ## Examples
 
 First, we will feed Inferno a JSON object with several fields and see how it generates the corresponding Dart object. Then, we will see how Inferno can handle nested JSON objects and arrays, and how it can infer other data types from the JSON data.
@@ -46,22 +61,22 @@ part 'object1.g.dart';
 @JsonSerializable()
 class Object1 {
 
-        @JsonKey(name: "first_name")
-        final String firstName;
+	@JsonKey(name: "first_name")
+	final String firstName;
 
-        @JsonKey(name: "last_name")
-        final String lastName;
+	@JsonKey(name: "last_name")
+	final String lastName;
 
-        final num age;
+	final num age;
 
-        Object1({
-                required this.firstName,
-                required this.lastName,
-                required this.age
-        });
+	Object1({
+		required this.firstName,
+		required this.lastName,
+		required this.age
+	});
 
-        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
-        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+	factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+	Map<String, dynamic> toJson() => _$Object1ToJson(this);
 
 }
 ```
@@ -76,8 +91,8 @@ Let's look at an example of a JSON file containing a nested object. In this exam
 {
     "name": "Raymond Jacob Holt",
     "location": {
-        "city": "Brooklyn",
-        "state": "NY"
+	"city": "Brooklyn",
+	"state": "NY"
     }
 }
 ```
@@ -92,30 +107,30 @@ part 'object1.g.dart';
 @JsonSerializable()
 class Object1 {
 
-        final String city;
-        final String state;
-        Object1({
-                required this.city,
-                required this.state
-        });
+	final String city;
+	final String state;
+	Object1({
+		required this.city,
+		required this.state
+	});
 
-        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
-        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+	factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+	Map<String, dynamic> toJson() => _$Object1ToJson(this);
 
 }
 
 @JsonSerializable()
 class Object2 {
 
-        final String name;
-        final Object1 location;
-        Object2({
-                required this.name,
-                required this.location
-        });
+	final String name;
+	final Object1 location;
+	Object2({
+		required this.name,
+		required this.location
+	});
 
-        factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
-        Map<String, dynamic> toJson() => _$Object2ToJson(this);
+	factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
+	Map<String, dynamic> toJson() => _$Object2ToJson(this);
 
 }
 ```
@@ -140,18 +155,18 @@ part 'object1.g.dart';
 @JsonSerializable()
 class Object1 {
 
-        final List<String> names;
-        final List<num> ages;
-        @JsonKey(name: "can_drive")
-        final List<bool> canDrive;
-        Object1({
-                required this.names,
-                required this.ages,
-                required this.canDrive
-        });
+	final List<String> names;
+	final List<num> ages;
+	@JsonKey(name: "can_drive")
+	final List<bool> canDrive;
+	Object1({
+		required this.names,
+		required this.ages,
+		required this.canDrive
+	});
 
-        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
-        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+	factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+	Map<String, dynamic> toJson() => _$Object1ToJson(this);
 
 }
 ```
@@ -161,9 +176,9 @@ class Object1 {
 ```json
 {
     "points": [
-        { "x": 0, "y": 0 },
-        { "x": 5, "y": 2 },
-        { "x": 3, "y": 4 }
+	{ "x": 0, "y": 0 },
+	{ "x": 5, "y": 2 },
+	{ "x": 3, "y": 4 }
     ]
 }
 ```
@@ -176,28 +191,28 @@ part 'object1.g.dart';
 @JsonSerializable()
 class Object1 {
 
-        final num x;
-        final num y;
-        Object1({
-                required this.x,
-                required this.y
-        });
+	final num x;
+	final num y;
+	Object1({
+		required this.x,
+		required this.y
+	});
 
-        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
-        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+	factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+	Map<String, dynamic> toJson() => _$Object1ToJson(this);
 
 }
 
 @JsonSerializable()
 class Object2 {
 
-        final List<Object1> points;
-        Object2({
-                required this.points
-        });
+	final List<Object1> points;
+	Object2({
+		required this.points
+	});
 
-        factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
-        Map<String, dynamic> toJson() => _$Object2ToJson(this);
+	factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
+	Map<String, dynamic> toJson() => _$Object2ToJson(this);
 
 }
 ```
@@ -207,9 +222,9 @@ class Object2 {
 ```json
 {
     "points": [
-        { "x": 0, "y": 0 },
-        { "x": 5, "y": 2, "z": 16 },
-        { "x": 3, "y": 4 }
+	{ "x": 0, "y": 0 },
+	{ "x": 5, "y": 2, "z": 16 },
+	{ "x": 3, "y": 4 }
     ]
 }
 ```
@@ -222,30 +237,30 @@ part 'object1.g.dart';
 @JsonSerializable()
 class Object1 {
 
-        final num x;
-        final num y;
-        final num? z;
-        Object1({
-                required this.x,
-                required this.y,
-                this.z
-        });
+	final num x;
+	final num y;
+	final num? z;
+	Object1({
+		required this.x,
+		required this.y,
+		this.z
+	});
 
-        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
-        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+	factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+	Map<String, dynamic> toJson() => _$Object1ToJson(this);
 
 }
 
 @JsonSerializable()
 class Object2 {
 
-        final List<Object1> points;
-        Object2({
-                required this.points
-        });
+	final List<Object1> points;
+	Object2({
+		required this.points
+	});
 
-        factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
-        Map<String, dynamic> toJson() => _$Object2ToJson(this);
+	factory Object2.fromJson(Map<String, dynamic> json) => _$Object2FromJson(json);
+	Map<String, dynamic> toJson() => _$Object2ToJson(this);
 
 }
 ```
@@ -255,9 +270,9 @@ class Object2 {
 ```json
 {
     "grid": [
-        [ false, false, true ],
-        [ false, true, false ],
-        [ true, false, false ]
+	[ false, false, true ],
+	[ false, true, false ],
+	[ true, false, false ]
     ]
 }
 ```
@@ -270,13 +285,13 @@ part 'object1.g.dart';
 @JsonSerializable()
 class Object1 {
 
-        final List<List<bool>> grid;
-        Object1({
-                required this.grid
-        });
+	final List<List<bool>> grid;
+	Object1({
+		required this.grid
+	});
 
-        factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
-        Map<String, dynamic> toJson() => _$Object1ToJson(this);
+	factory Object1.fromJson(Map<String, dynamic> json) => _$Object1FromJson(json);
+	Map<String, dynamic> toJson() => _$Object1ToJson(this);
 
 }
 ```
