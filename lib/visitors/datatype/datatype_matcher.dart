@@ -1,4 +1,4 @@
-import 'package:auto_json_serializable/datatypes/datatypes.dart';
+import 'package:inferno/datatypes/datatypes.dart';
 import 'package:collection/collection.dart';
 import 'datatype_visitor.dart';
 

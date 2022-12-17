@@ -1,6 +1,6 @@
-import 'package:auto_json_serializable/datatypes/datatypes.dart';
-import 'package:auto_json_serializable/visitors/json/json.dart';
-import 'package:auto_json_serializable/visitors/datatype/datatype_merger.dart';
+import 'package:inferno/datatypes/datatypes.dart';
+import 'package:inferno/visitors/json/json.dart';
+import 'package:inferno/visitors/datatype/datatype_merger.dart';
 import 'datatype_visitor.dart';
 import 'field_renamer.dart';
 

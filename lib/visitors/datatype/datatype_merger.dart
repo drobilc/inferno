@@ -1,6 +1,6 @@
-import 'package:auto_json_serializable/datatypes/datatypes.dart';
-import 'package:auto_json_serializable/visitors/datatype/datatype_matcher.dart';
-import 'package:auto_json_serializable/visitors/json/merge_strategy.dart';
+import 'package:inferno/datatypes/datatypes.dart';
+import 'package:inferno/visitors/datatype/datatype_matcher.dart';
+import 'package:inferno/visitors/json/merge_strategy.dart';
 
 class DataTypeMerger {
 
