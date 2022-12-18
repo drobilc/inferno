@@ -72,9 +72,16 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
     List<String> argument, {
     String? definedClassName,
   }) {
-    final fieldTypes = dataType.fieldTypes.map(
-      (key, value) => MapEntry(key, visit(value, argument)),
-    );
+    final fieldTypes = dataType.fieldTypes.map((key, value) {
+      if (value is ObjectType) {
+        // Special handling for `"key": { ... }` types. Use key as new object
+        // name, so that it is easier to read generated classes.
+        final generatedClassName = visitObjectType(value, argument,
+            definedClassName: FieldRenamer.toPascalCase(key));
+        return MapEntry(key, generatedClassName);
+      }
+      return MapEntry(key, visit(value, argument));
+    });
 
     // Convert all field names to camel case. Create a mapping between original
     // field name and the tranformed camel case string.
