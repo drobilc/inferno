@@ -1,6 +1,6 @@
+import 'package:inferno/annotations.dart';
 import 'package:inferno/datatypes/datatypes.dart';
 import 'package:inferno/visitors/datatype/datatype_matcher.dart';
-import 'package:inferno/visitors/json/merge_strategy.dart';
 
 class DataTypeMerger {
 

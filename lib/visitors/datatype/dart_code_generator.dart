@@ -1,5 +1,5 @@
+import 'package:inferno/annotations.dart';
 import 'package:inferno/datatypes/datatypes.dart';
-import 'package:inferno/visitors/json/json.dart';
 import 'package:inferno/visitors/datatype/datatype_merger.dart';
 import 'datatype_visitor.dart';
 import 'field_renamer.dart';
