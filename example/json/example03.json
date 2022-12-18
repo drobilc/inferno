@@ -1,0 +1,5 @@
+{
+    "names": [ "George", "Jenna", "Michael", "Tina" ],
+    "ages": [ 25, 12, 84, 16 ],
+    "can_drive": [ true, false, true, false ]
+}
