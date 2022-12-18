@@ -59,11 +59,20 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
   }
 
   @override
-  String visitArrayType(ArrayType dataType, List<String> argument) {
+  String visitArrayType(
+    ArrayType dataType,
+    List<String> argument, {
+    String? definedClassName,
+  }) {
     final arrayType = dataType.itemTypes.reduce(
       (value, element) => DataTypeMerger.merge(mergeStrategy, value, element),
     );
-    return _nullableWrap("List<${visit(arrayType, argument)}>", dataType);
+
+    final arrayItemType = arrayType is ObjectType
+        ? visitObjectType(arrayType, argument,
+            definedClassName: definedClassName)
+        : visit(arrayType, argument);
+    return _nullableWrap("List<$arrayItemType>", dataType);
   }
 
   @override
@@ -77,6 +86,12 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
         // Special handling for `"key": { ... }` types. Use key as new object
         // name, so that it is easier to read generated classes.
         final generatedClassName = visitObjectType(value, argument,
+            definedClassName: FieldRenamer.toPascalCase(key));
+        return MapEntry(key, generatedClassName);
+      } else if (value is ArrayType) {
+        // Special handling for `"key": [ ... ]` types. Use key as new object
+        // name, so that it is easier to read generated classes.
+        final generatedClassName = visitArrayType(value, argument,
             definedClassName: FieldRenamer.toPascalCase(key));
         return MapEntry(key, generatedClassName);
       }
