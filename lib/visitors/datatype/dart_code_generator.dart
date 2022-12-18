@@ -130,7 +130,7 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
       final nullablePrefix = isNullable ? '' : 'required ';
       final camelCaseName = fieldNames[entry.key] ?? entry.key;
       return '${nullablePrefix}this.$camelCaseName';
-    }).join(',\n\t\t');
+    }).map((e) => '$e,\n\t\t',).join();
 
     final className = definedClassName ?? _generateObjectName();
     final inferredClassName = 'Inferred$className';
