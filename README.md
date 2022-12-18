@@ -1,9 +1,9 @@
 <div align="center">
-    <img src="public/inferno.png" alt="Inferno logo">
+    <img src="https://raw.githubusercontent.com/drobilc/inferno/main/public/inferno.png" alt="Inferno logo">
 </div>
 
 <h3 align="center">
-  <a href="#installation"><b>Installation</b></a>
+  <a href="#introduction"><b>Introduction</b></a>
   &nbsp;&#65372;&nbsp;
   <a href="#usage"><b>Usage</b></a>
   &nbsp;&#65372;&nbsp;
@@ -37,7 +37,7 @@ The **Inferno** library will generate a file `person.inferno.dart`, containing a
 
 ### Type inference
 
-```
+```dart
 @InferFromJSONFile(file: "person.json")
 typedef Person = InferredPerson;
 ```
