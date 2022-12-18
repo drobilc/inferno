@@ -9,7 +9,7 @@ import 'package:inferno/visitors/json/json.dart';
 import 'dart:convert';
 import 'annotations.dart';
 
-class DartObjectGenerator extends GeneratorForAnnotation<InferFromJSONFile> {
+class DartObjectGenerator extends GeneratorForAnnotation<InferFromJsonFile> {
   @override
   Future<String> generateForAnnotatedElement(
     Element element,

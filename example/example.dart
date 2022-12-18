@@ -4,8 +4,8 @@ import 'package:inferno/annotations.dart';
 part 'example.inferno.dart';
 part 'example.g.dart';
 
-@InferFromJSONFile(file: "person.json")
+@InferFromJsonFile(file: "person.json")
 typedef Person = InferredPerson;
 
-@InferFromJSONFile(file: "item.json")
+@InferFromJsonFile(file: "item.json")
 typedef Item = InferredItem;
