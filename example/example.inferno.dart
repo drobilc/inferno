@@ -7,13 +7,24 @@ part of 'example.dart';
 // **************************************************************************
 
 @JsonSerializable()
+class InferredPersonalItems {
+  final String name;
+  final num? price;
+  InferredPersonalItems({required this.name, this.price});
+
+  factory InferredPersonalItems.fromJson(Map<String, dynamic> json) =>
+      _$InferredPersonalItemsFromJson(json);
+  Map<String, dynamic> toJson() => _$InferredPersonalItemsToJson(this);
+}
+
+@JsonSerializable()
 class InferredPerson {
   @JsonKey(name: "first_name")
   final String firstName;
   @JsonKey(name: "last_name")
   final String lastName;
   @JsonKey(name: "personal_items")
-  final List<dynamic> personalItems;
+  final List<InferredPersonalItems> personalItems;
   InferredPerson(
       {required this.firstName,
       required this.lastName,
