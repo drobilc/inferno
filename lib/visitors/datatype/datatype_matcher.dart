@@ -35,6 +35,8 @@ class DataTypeMatcher extends DataTypeVisitor<Match, DataType> {
 
   @override
   Match visitNumberType(NumberType dataType, DataType argument) {
+    if (argument is FloatType) return Match.partialMatch;
+    if (argument is IntegerType) return Match.partialMatch;
     if (argument is NumberType) return Match.fullMatch;
     return Match.noMatch;
   }
