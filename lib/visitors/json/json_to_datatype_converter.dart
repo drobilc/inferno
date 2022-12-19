@@ -1,7 +1,7 @@
 import 'package:inferno/datatypes/datatypes.dart';
 import 'json_visitor.dart';
-class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
 
+class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
   static DataType convert(dynamic json) {
     return JsonToDataTypeConverter().visit(json, null);
   }
@@ -33,7 +33,8 @@ class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
 
   @override
   DataType visitJsonArray(List json, Object? argument) {
-    final itemTypes = json.map((e) => visit(e, argument)).toList(growable: false);
+    final itemTypes =
+        json.map((e) => visit(e, argument)).toList(growable: false);
     return ArrayType(itemTypes);
   }
 

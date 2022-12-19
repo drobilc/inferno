@@ -17,7 +17,9 @@ class DataTypeMerger {
     // If both data types are numeric, but don't match exactly (eg. one is a
     // float and the other is a int), then the field should have a `num` data
     // type.
-    if (first is NumberType && second is NumberType && !sameNumericType(first, second)) {
+    if (first is NumberType &&
+        second is NumberType &&
+        !sameNumericType(first, second)) {
       return NumberType(nullable: first.nullable || second.nullable);
     }
 
@@ -37,7 +39,9 @@ class DataTypeMerger {
       return first;
     } else if (first is NullType && second is ObjectType) {
       return second;
-    } else if (first is NumberType && second is NumberType && !sameNumericType(first, second)) {
+    } else if (first is NumberType &&
+        second is NumberType &&
+        !sameNumericType(first, second)) {
       // If both data types are numeric, but don't match exactly (eg. one is a
       // float and the other is a int), then the field should have a `num` data
       // type.

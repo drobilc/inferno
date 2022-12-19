@@ -1,7 +1,6 @@
 import 'package:inferno/datatypes/datatypes.dart';
 
 abstract class DataTypeVisitor<T, A> {
-
   T visitStringType(StringType dataType, A argument);
   T visitObjectType(ObjectType dataType, A argument);
   T visitIntegerType(IntegerType dataType, A argument);

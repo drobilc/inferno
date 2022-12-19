@@ -135,12 +135,17 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
       }
     }).join('\n');
 
-    final fieldTypesConstructorSignature = fieldTypes.entries.map((entry) {
-      final isNullable = dataType.fieldTypes[entry.key]!.nullable;
-      final nullablePrefix = isNullable ? '' : 'required ';
-      final camelCaseName = fieldNames[entry.key] ?? entry.key;
-      return '${nullablePrefix}this.$camelCaseName';
-    }).map((e) => '$e,\n\t\t',).join();
+    final fieldTypesConstructorSignature = fieldTypes.entries
+        .map((entry) {
+          final isNullable = dataType.fieldTypes[entry.key]!.nullable;
+          final nullablePrefix = isNullable ? '' : 'required ';
+          final camelCaseName = fieldNames[entry.key] ?? entry.key;
+          return '${nullablePrefix}this.$camelCaseName';
+        })
+        .map(
+          (e) => '$e,\n\t\t',
+        )
+        .join();
 
     final className = definedClassName ?? _generateObjectName();
     final inferredClassName = 'Inferred$className';

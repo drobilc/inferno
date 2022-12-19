@@ -9,7 +9,6 @@ enum Match {
 }
 
 class DataTypeMatcher extends DataTypeVisitor<Match, DataType> {
-
   static Match match(DataType first, DataType second) {
     if (second is DynamicType || second is NullType) {
       return DataTypeMatcher().visit(second, first);
@@ -74,9 +73,10 @@ class DataTypeMatcher extends DataTypeVisitor<Match, DataType> {
 
     final fieldNames = dataType.fieldTypes.keys.toSet();
     final otherFieldNames = argument.fieldTypes.keys.toSet();
-    
+
     final sameFieldNames = fieldNames.intersection(otherFieldNames);
-    final differentFieldNames = fieldNames.union(otherFieldNames).difference(sameFieldNames);
+    final differentFieldNames =
+        fieldNames.union(otherFieldNames).difference(sameFieldNames);
 
     // If one of the object has a key, that the other does not, this is at most
     // partial match.
@@ -84,10 +84,12 @@ class DataTypeMatcher extends DataTypeVisitor<Match, DataType> {
 
     final fieldTypes = sameFieldNames.map((e) => dataType.fieldTypes[e]!);
     final otherFieldTypes = sameFieldNames.map((e) => argument.fieldTypes[e]!);
-    final matches = IterableZip([fieldTypes, otherFieldTypes]).map((e) => visit(e[0], e[1]));
+    final matches = IterableZip([fieldTypes, otherFieldTypes])
+        .map((e) => visit(e[0], e[1]));
 
     // Two objects match fully if and only if all fields fully match.
-    if (matches.every((element) => element == Match.fullMatch)) return Match.fullMatch;
+    if (matches.every((element) => element == Match.fullMatch))
+      return Match.fullMatch;
 
     // Otherwise, we have found two objects, which gives us a partial match.
     return Match.partialMatch;

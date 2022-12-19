@@ -1,4 +1,3 @@
-
 class InferFromJsonFile {
   /// Relative path to file from which the `json_serializable` compatible class
   /// should be inferred.
