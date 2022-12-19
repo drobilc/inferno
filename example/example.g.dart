@@ -10,7 +10,7 @@ InferredExample01 _$InferredExample01FromJson(Map<String, dynamic> json) =>
     InferredExample01(
       firstName: json['first_name'] as String,
       lastName: json['last_name'] as String,
-      age: json['age'] as num,
+      age: json['age'] as int,
     );
 
 Map<String, dynamic> _$InferredExample01ToJson(InferredExample01 instance) =>
@@ -62,8 +62,8 @@ Map<String, dynamic> _$InferredExample03ToJson(InferredExample03 instance) =>
 
 InferredPoints _$InferredPointsFromJson(Map<String, dynamic> json) =>
     InferredPoints(
-      x: json['x'] as num,
-      y: json['y'] as num,
+      x: json['x'] as int,
+      y: json['y'] as int,
     );
 
 Map<String, dynamic> _$InferredPointsToJson(InferredPoints instance) =>
@@ -86,9 +86,9 @@ Map<String, dynamic> _$InferredExample04ToJson(InferredExample04 instance) =>
 
 InferredPointsXyz _$InferredPointsXyzFromJson(Map<String, dynamic> json) =>
     InferredPointsXyz(
-      x: json['x'] as num,
-      y: json['y'] as num,
-      z: json['z'] as num?,
+      x: json['x'] as int,
+      y: json['y'] as int,
+      z: json['z'] as int?,
     );
 
 Map<String, dynamic> _$InferredPointsXyzToJson(InferredPointsXyz instance) =>

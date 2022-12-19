@@ -12,7 +12,7 @@ class InferredExample01 {
   final String firstName;
   @JsonKey(name: "last_name")
   final String lastName;
-  final num age;
+  final int age;
   InferredExample01({
     required this.firstName,
     required this.lastName,
@@ -71,8 +71,8 @@ class InferredExample03 {
 
 @JsonSerializable()
 class InferredPoints {
-  final num x;
-  final num y;
+  final int x;
+  final int y;
   InferredPoints({
     required this.x,
     required this.y,
@@ -97,9 +97,9 @@ class InferredExample04 {
 
 @JsonSerializable()
 class InferredPointsXyz {
-  final num x;
-  final num y;
-  final num? z;
+  final int x;
+  final int y;
+  final int? z;
   InferredPointsXyz({
     required this.x,
     required this.y,
