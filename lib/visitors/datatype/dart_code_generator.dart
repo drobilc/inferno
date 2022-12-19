@@ -49,6 +49,16 @@ class DartCodeGenerator extends DataTypeVisitor<String, List<String>> {
   }
 
   @override
+  String visitIntegerType(IntegerType dataType, List<String> argument) {
+    return _nullableWrap("int", dataType);
+  }
+
+  @override
+  String visitFloatType(FloatType dataType, List<String> argument) {
+    return _nullableWrap("double", dataType);
+  }
+
+  @override
   String visitNumberType(NumberType dataType, List<String> argument) {
     return _nullableWrap("num", dataType);
   }

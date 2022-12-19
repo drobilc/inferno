@@ -13,7 +13,7 @@ class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
 
   @override
   DataType visitJsonInteger(int json, Object? argument) {
-    return NumberType();
+    return IntegerType();
   }
 
   @override
@@ -23,7 +23,7 @@ class JsonToDataTypeConverter extends JsonVisitor<DataType, Object?> {
 
   @override
   DataType visitJsonNumber(num json, Object? argument) {
-    return NumberType();
+    return FloatType();
   }
 
   @override

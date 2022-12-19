@@ -4,6 +4,8 @@ abstract class DataTypeVisitor<T, A> {
 
   T visitStringType(StringType dataType, A argument);
   T visitObjectType(ObjectType dataType, A argument);
+  T visitIntegerType(IntegerType dataType, A argument);
+  T visitFloatType(FloatType dataType, A argument);
   T visitNumberType(NumberType dataType, A argument);
   T visitNullType(NullType dataType, A argument);
   T visitDynamicType(DynamicType dataType, A argument);
@@ -15,6 +17,10 @@ abstract class DataTypeVisitor<T, A> {
       return visitStringType(dataType, argument);
     } else if (dataType is ObjectType) {
       return visitObjectType(dataType, argument);
+    } else if (dataType is IntegerType) {
+      return visitIntegerType(dataType, argument);
+    } else if (dataType is FloatType) {
+      return visitFloatType(dataType, argument);
     } else if (dataType is NumberType) {
       return visitNumberType(dataType, argument);
     } else if (dataType is NullType) {
