@@ -16,7 +16,7 @@
 
 ## Usage
 
-The following code in file named `person.dart`.
+Put the following code in a file named `person.dart`. Make sure to also include a `person.json` in the same directory and run `dart run build_runner build`.
 
 ```dart
 import 'package:json_annotation/json_annotation.dart';
@@ -28,6 +28,8 @@ part 'person.g.dart';
 @InferFromJSONFile(file: "person.json")
 typedef Person = InferredPerson;
 ```
+
+**Inferno** will generate `person.inferno.dart` file with inferred data types for JSON data inside the `person.json`. The `json_serializable` library will generate a `person.g.dart` file containing a parser for input data.
 
 ### Imports
 
