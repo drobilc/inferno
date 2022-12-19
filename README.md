@@ -81,7 +81,7 @@ class InferredExample01 {
   final String firstName;
   @JsonKey(name: "last_name")
   final String lastName;
-  final num age;
+  final int age;
   InferredExample01({
     required this.firstName,
     required this.lastName,
@@ -158,7 +158,7 @@ To parse the original JSON file, we can now call `final person = InferredExample
 @JsonSerializable()
 class InferredExample03 {
   final List<String> names;
-  final List<num> ages;
+  final List<int> ages;
   @JsonKey(name: "can_drive")
   final List<bool> canDrive;
   InferredExample03({
@@ -188,8 +188,8 @@ class InferredExample03 {
 ```dart
 @JsonSerializable()
 class InferredPoints {
-  final num x;
-  final num y;
+  final int x;
+  final int y;
   InferredPoints({
     required this.x,
     required this.y,
@@ -228,9 +228,9 @@ class InferredExample04 {
 ```dart
 @JsonSerializable()
 class InferredPointsXyz {
-  final num x;
-  final num y;
-  final num? z;
+  final int x;
+  final int y;
+  final int? z;
   InferredPointsXyz({
     required this.x,
     required this.y,
