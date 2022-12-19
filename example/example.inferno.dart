@@ -55,7 +55,7 @@ class InferredExample02 {
 @JsonSerializable()
 class InferredExample03 {
   final List<String> names;
-  final List<num> ages;
+  final List<int> ages;
   @JsonKey(name: "can_drive")
   final List<bool> canDrive;
   InferredExample03({

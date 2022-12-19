@@ -48,7 +48,7 @@ Map<String, dynamic> _$InferredExample02ToJson(InferredExample02 instance) =>
 InferredExample03 _$InferredExample03FromJson(Map<String, dynamic> json) =>
     InferredExample03(
       names: (json['names'] as List<dynamic>).map((e) => e as String).toList(),
-      ages: (json['ages'] as List<dynamic>).map((e) => e as num).toList(),
+      ages: (json['ages'] as List<dynamic>).map((e) => e as int).toList(),
       canDrive:
           (json['can_drive'] as List<dynamic>).map((e) => e as bool).toList(),
     );
