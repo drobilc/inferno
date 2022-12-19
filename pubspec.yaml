@@ -1,6 +1,6 @@
 name: inferno
 description: Automatically create Dart classes that match the structure of your JSON files.
-version: 0.0.1
+version: 0.1.0
 repository: https://github.com/drobilc/inferno
 issue_tracker: https://github.com/drobilc/inferno/issues
 
